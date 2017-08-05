@@ -30,4 +30,34 @@ function custom_settings_page() { ?>
     </form>
   </div>
 <?php }
+
+// Twitter
+function setting_twitter() { ?>
+  <input type="text" name="twitter" id="twitter" value="<?php echo get_option( 'twitter' ); ?>" />
+<?php }
+
+// Facebook
+function setting_twitter() { ?>
+  <input type="text" name="facebook" id="facebook" value="<?php echo get_option( 'facebook' ); ?>" />
+<?php }
+
+// Instagram
+function setting_twitter() { ?>
+  <input type="text" name="instagram" id="instagram" value="<?php echo get_option( 'instagram' ); ?>" />
+<?php }
+
+function custom_settings_page_setup() {
+  add_settings_section( 'section', 'All Settings', null, 'theme-options' );
+  add_settings_field( 'twitter', 'Twitter URL', 'setting_twitter', 'theme-options', 'section' );
+	add_settings_field( 'facebook', 'Facebook URL', 'setting_facebook', 'theme-options', 'section' );
+	add_settings_field( 'instagram', 'Instagram URL', 'setting_instagram', 'theme-options', 'section' );
+
+  register_setting('section', 'twitter');
+	register_setting('section', 'facebook');
+	register_setting('section', 'instagram');
+
+}
+add_action( 'admin_init', 'custom_settings_page_setup' );
+
+add_theme_support( 'post-thumbnails' );
  ?>
