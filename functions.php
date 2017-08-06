@@ -2,14 +2,25 @@
 // Add scripts and stylesheets
 function startwordpress_scripts() {
 	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css', array(), '3.3.6' );
+	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array( 'jquery' ), '3.3.6', true );
 	wp_enqueue_style( 'blog', get_template_directory_uri() . '/css/blog.css' );
   wp_enqueue_style( 'custom', get_template_directory_uri() . '/css/custom.css' );
-	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array( 'jquery' ), '3.3.6', true );
 }
 
 add_action( 'wp_enqueue_scripts', 'startwordpress_scripts' );
 
 add_theme_support( 'title-tag' );
+
+if( !defined(THEME_IMG_PATH)){
+	define( 'THEME_IMG_PATH', get_template_directory_uri() . '/img' );
+ }
+
+function search_with_image_submit() {
+?>
+<form method="get" class="search_form_image_button" action="<?php bloginfo('home'); ?>/"><p><input class="text_input" type="text" value="Enter Text &amp; Click to Search" name="s" id="s" onfocus="if (this.value == 'Enter Text &amp; Click to Search') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Enter Text &amp; Click to Search';}" /><button type="submit" id="searchsubmit" /><i class="fa fa-search"></i></button></p></form>
+<?php
+}
+add_action('thesis_hook_before_content', 'search_with_image_submit');
 
 // Custom settings
 function custom_settings_add_menu() {
@@ -37,12 +48,12 @@ function setting_twitter() { ?>
 <?php }
 
 // Facebook
-function setting_twitter() { ?>
+function setting_facebook() { ?>
   <input type="text" name="facebook" id="facebook" value="<?php echo get_option( 'facebook' ); ?>" />
 <?php }
 
 // Instagram
-function setting_twitter() { ?>
+function setting_instagram() { ?>
   <input type="text" name="instagram" id="instagram" value="<?php echo get_option( 'instagram' ); ?>" />
 <?php }
 
